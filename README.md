@@ -70,11 +70,10 @@ Of course these all assume that libs have been included, etc. Probably the easie
 You'll see that the test suite include [jquery][jquery]. However, shim.js does not and uses pure JavaScript so you don't need to include jquery if you don't want to.
 
 ### TODO 
-1. Tables/Forms not implemented (however, form elements are!).
-
-2. Pretty UI
-
-3. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
+1. Find elements by class.
+2. Tables/Forms not implemented (however, form elements are!).
+3. Pretty UI
+4. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
 
 ## F.A.Q.
 
