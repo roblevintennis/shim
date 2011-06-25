@@ -30,7 +30,9 @@ No. The above example just assumes that you want to, but shim.js is self suffici
 ## Usage
 
 A quick example how to use shim.js:
+
 <code>
+
     // Here's finding a textfield and setting it's value           
     var t = shim.textfield({name:"firstname"});
     t.set("john malkovich")
