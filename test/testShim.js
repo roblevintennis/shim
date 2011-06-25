@@ -225,24 +225,48 @@ describe("DOM Setters and Actions", function() {
 
 });
 
-//*********************************
-// TODO: Page Should Contain Tests
-//*********************************
-// For exaple, watir has this:
-// @browser.text.should include("#{GLOBS::Signin}")
+//********************
+// Page Should Contain
+//********************
 describe("Page Contains", function() {
 
-console.log("\n\n\n\n#####################################");
-console.log("#####################################");
-console.log(">>>>> TODO <<<<<");
-console.log("Need to implement some \"page contains\" type of functionality.");
-console.log("For example, waitr has b.text.should include('string')");
-console.log("And capybara has: page.should have_content || have_no_content('foo')");
-console.log("#####################################");
-console.log("#####################################\n\n\n\n");
-
     it('should be able to see text on page', function () {
-        // Not yet implemented
+        expect(shim.pageContains('resig')).toBeTruthy();
+        expect(shim.pageContains('bogus_no_way')).not.toBeTruthy();
+        expect(shim.pageDoesNotContain('bogus_no_way')).toBeTruthy();
+    });
+
+    it('should be able to search for same term twice ', function () {
+        expect(shim.pageContains('Wilson')).toBeTruthy();
+        expect(shim.pageContains('Wilson')).toBeTruthy();// same term twice
+    });
+
+    it('should provide some familiar aliases for page contains', function () {
+        // capybara
+        expect(shim.have_content('Wilson')).toBeTruthy();
+        expect(shim.have_no_content('bogus_no_way')).toBeTruthy();
+        // watir/selenium
+        expect(shim.should_include('resig')).toBeTruthy();
+        expect(shim.should_include('bogus_no_way')).not.toBeTruthy();
+        expect(shim.should_not_include('bogus_no_way')).toBeTruthy();
+    });
+
+    it('should not find hidden elements', function () {
+        expect(shim.pageContains('ihide')).not.toBeTruthy();
+        expect(shim.pageContains('ihide2')).not.toBeTruthy();
+        expect(shim.pageContains('ishow')).toBeTruthy();
+    });
+
+    it('should default to partial words case sensitive', function () {
+        expect(shim.pageContains('isho')).toBeTruthy();
+        expect(shim.have_content('Wils')).toBeTruthy();
+    });
+
+    it('should have finer grained control for case and whole words', function () {
+        expect(shim.have_content('wIlSoN', false)).toBeTruthy();
+        expect(shim.have_content('wIlSoN', true)).not.toBeTruthy();
+        // Only match whole words. MDC does NOT implement this.
+        //expect(shim.have_content('lisciousn', true, true)).not.toBeTruthy();
     });
 });
 

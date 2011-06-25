@@ -27,6 +27,77 @@ var shim = (function() {
         }
     };
 
+    // findTextOnPage - Returns a boolean indicating if the search
+    // string supplied was found on page. Not comprehensive; if text
+    // is already selected, it searches from there. Leverages the
+    // windows.find function available FF, Chrome, Safari; or findText
+    // for IE.
+    //
+    // stringToFind - search text
+    // caseSensitive - true means it IS case sensitive
+    // wholeWords - Might not work. MDC says 'Unimplemented'
+    //
+    // References: 
+    // http://www.javascripter.net/faq/searchin.htm
+    // http://help.dottoro.com/ljstxqnd.php
+    // https://developer.mozilla.org/en/DOM/window.find
+    function findTextOnPage (stringToFind, caseSensitive, wholeWords) {
+        var stringFound = false;
+    
+        // default to being case sensitive and matching partial words
+        if(typeof caseSensitive === 'undefined') {
+            caseSensitive = true;
+        }
+        if(typeof wholeWords === 'undefined') {
+            wholeWords = false;
+        }
+    
+        // Firefox, Google Chrome, Safari
+        if (window.find) {        
+            stringFound =
+                window.find(stringToFind, 
+                            caseSensitive, 
+                            true,           // backwards
+                            true,           // wrap around. turns out
+                                            // to be important in my tests
+                                            // when same term 2+ times
+                            wholeWords,     // NOT IMPLEMENTED in MDC!
+                            true,           // search in frames
+                            false);         // show dialog
+        }
+    
+        // Internet Explorer, Opera before version 10.5
+        else if (document.selection && document.selection.createRange) { 
+            var textRange = document.selection.createRange ();
+    
+            // http://msdn.microsoft.com/en-us/library/ms536422(VS.85).aspx
+            if (textRange.findText) {
+                textRange.collapse (true);
+    
+                if(caseSensitive && wholeWords) {
+                    // Case sensitive and whole words
+                    stringFound = textRange.findText(stringToFind, 0, 6);
+                } 
+                else if(caseSensitive && !wholeWords) {
+                    // Case sensitive and partial words
+                    stringFound = textRange.findText(stringToFind, 0, 4);
+    
+                } else {
+    
+                    if(wholeWords) {
+                        // Case insensitive but whole words
+                        stringFound = textRange.findText(stringToFind, 0, 2);
+    
+                    } else {
+                        // Case insensitive and partial words
+                        stringFound = textRange.findText(stringToFind, 0, 2);
+                    }
+                }
+            }
+        }
+        return stringFound;
+    }
+
     function doLink (o, arrRequiresOneOf) {
         boilerPlate(o, arrRequiresOneOf);
 
@@ -333,6 +404,29 @@ var shim = (function() {
         },
         clearLocalStorage: function() {
             if(isLocalStorage) window.localStorage.clear();
+        },
+
+        // Page contains. Decided to provide some aliases for this ;)
+        // Only stringFound is required as it defaults to case sensitive
+        // partial words
+        pageContains: function (stringToFind, caseSensitive, wholeWords){
+            return findTextOnPage(stringToFind, caseSensitive, wholeWords);
+        },
+        pageDoesNotContain: function (stringToFind, caseSensitive, wholeWords){
+            return !findTextOnPage(stringToFind, caseSensitive, wholeWords);
+        },
+
+        should_include: function (stringToFind, caseSensitive, wholeWords){
+            return findTextOnPage(stringToFind, caseSensitive, wholeWords);
+        },
+        should_not_include: function (stringToFind, caseSensitive, wholeWords){
+            return !findTextOnPage(stringToFind, caseSensitive, wholeWords);
+        },
+        have_content: function (stringToFind, caseSensitive, wholeWords){
+            return findTextOnPage(stringToFind, caseSensitive, wholeWords);
+        },
+        have_no_content: function (stringToFind, caseSensitive, wholeWords){
+            return !findTextOnPage(stringToFind, caseSensitive, wholeWords);
         },
         ShimInputError: function(message) { return new ShimInputError(message); }
     }

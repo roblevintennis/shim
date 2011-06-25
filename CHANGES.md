@@ -1,5 +1,8 @@
 # shim.js Changes
 
+## 0.0.1 (25-06-2011)
+* Added page contains support
+
 ## 0.0.1 (24-06-2011)
 * Who: Rob Levin
 * Hacked first version of shim.js together ;)

@@ -28,21 +28,18 @@ A quick example how to use shim.js:
 
 Of course these all assume that libs have been included, etc. Probably the easiest way to grok quickly would be to look at the testShim.js file and run the test suite (which uses [jasmine][jasmine] by the way).
 
+You'll see that the test suite include [jquery][jquery]. However, shim.js does not and uses pure JavaScript so you don't need to include jquery if you don't want to.
+
 ### TODO 
-1. Need to implement some "page contains" type of functionality.
-For example, waitr has b.text.should include('string')
-And capybara has: page.should have_content || have_no_content('foo')
+1. Tables/Forms not implemented (however, form elements are!).
 
-2. Tables/Forms not implemented (however, form elements are!).
+2. Pretty UI
 
-3. Pretty UI
-
-4. Tie in to other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
+3. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
 
 ## F.A.Q.
 
 ### Coming soon
 
-Credits
 [jQuery]: http://jquery.com/
 [jasmine]: http://pivotal.github.com/jasmine/
