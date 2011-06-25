@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shim Test</title>
+
+</head>
+<body>
+<p>Hello World!</p>
+<div id="ninja">resig</div>
+<form id='theform' action="">
+First name: <input id='fn' type="text" name="firstname" value='tom' />
+<textarea rows='2' cols='10' name='mytextarea'>some text</textarea>
+
+<input type="button" value="Button1" />
+<input type="checkbox" name="ball" value="penn" /> I like Penn<br />
+<input type="checkbox" name="ball2" value="wilson" /> I like Wilson<br />
+<select name="tennis">
+  <option value="nadal">Nadal</option>
+  <option value="federer">Federer</option>
+  <option value="agassi">Agassi</option>
+</select>
+<input type="radio" name="colors" id="red" value="R" />Red
+<input type="radio" name="colors" id="blue" value="B" checked />Blue
+<input type="radio" name="colors" id="green" value="G" />Green
+<input type="submit" value="My Submit" name="mysubmit" />
+</form>
+
+<a href="http://www.google.com" name="google_link">Google</a>
+<a href="http://www.yahoo.com" name="yahoo_link">Google</a>
+<a href="http://www.foo.com/path/to/index.html" name="long_link">LongLink</a>
+<div id="sandbox"></div>
+
+<script src="../lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../lib/jasmine.js" type="text/javascript" charset="utf-8"></script>
+<script src="../src/shim.js" type="text/javascript" charset="utf-8"></script>
+<script src="jasmine-shim-adapter.js" type="text/javascript" charset="utf-8"></script>
+<script src="testShim.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    jasmine.getEnv().addReporter(new jasmine.ShimReporter());
+    jasmine.getEnv().execute();
+</script>
+
+
+</body>
+</html>
+
