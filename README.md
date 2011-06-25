@@ -15,14 +15,13 @@ Here's what you need to include if you plan to use the ShimReporter I just menti
 
 <pre>
 
-<!-- Assumes you want to use jasmine which is NOT required -->
-<script src="shim.js" type="text/javascript" charset="utf-8"></script>
-<script src="jasmine-shim-adapter.js" type="text/javascript" charset="utf-8"></script>
-<script src="jasmine.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-    jasmine.getEnv().addReporter(new jasmine.ShimReporter());
-    jasmine.getEnv().execute();
-</script>
+&lt;script src='shim.js' etc...
+&lt;script src='jasmine-shim-adapter.js' etc...
+&lt;script src='jasmine.js' etc...
+
+// Add then do this do kick off your test suite
+jasmine.getEnv().addReporter(new jasmine.ShimReporter());
+jasmine.getEnv().execute();
 
 </pre>
 
