@@ -167,56 +167,61 @@ describe("Test Shim", function() {
             }
         };
 
-            
         it('should fire click events', function() {
             // Fire click on button
             var b = shim.button({value:"Button1"});
             jQuery(b).click(function(eventObject) {
+                expect(eventObject.type).toBe('click');
                 stopEvent(eventObject);
-                setTimeout(function() {
-                    expect(eventObject.type).toBe('click');
-                },50);
             });
             b.click();
 
             // Fire click on submit
             var s = shim.submit({value:"My Submit"});
             jQuery(s).click(function(eventObject) {
+                expect(eventObject.type).toBe('click');
                 stopEvent(eventObject);
-                setTimeout(function() {
-                    expect(eventObject.type).toBe('click');
-                },50);
             });
             s.click();
 
             // Fire click on link
             var ll = shim.link({href:"http://www.foo.com/path/to/index.html"});
             jQuery(ll).click(function(eventObject) {
+                expect(eventObject.type).toBe('click');
                 stopEvent(eventObject);
-                setTimeout(function() {
-                    expect(eventObject.type).toBe('click');
-                },50);
             });
             ll.click();
+        });
+ 
+        it('should fire click event on element by id', function() {
+            var e = shim.element({id:"ninja"});
+            jQuery(e).click(function(eventObject) {
+                runs(function () {
+                    expect(eventObject.type).toBe('click');
+                    stopEvent(eventObject);
+                });
+            });
+            e.click();
         });
 
         it('should fire keydown event with keycode', function() {
             // Fire keycode 39 on a button
             var b = shim.button({value:"Button1"});
             jQuery(b).keydown(function(eventObject) {
-                setTimeout(function() {
+                runs(function() {
                     expect(eventObject.which).toBe(39);
-                },50);
+                    stopEvent(eventObject);
+                });
             });
             b.keydown(39);
 
             // Fire keycode 13 on a link
             var ll = shim.link({href:"http://www.foo.com/path/to/index.html"});
             jQuery(ll).keydown(function(eventObject) {
-                stopEvent(eventObject);
-                setTimeout(function() {
+                runs(function () {
                     expect(eventObject.which).toBe(13);
-                },50);
+                    stopEvent(eventObject);
+                });
             });
             ll.keydown(13);
         });

@@ -1,14 +1,8 @@
-
+// shim.js
+//
+// Rob Levin
+// Fri Jun 24 21:33:13 PDT 2011
 var shim = (function() {
-
-    // Credit: Dive into html5 http://diveintohtml5.org/detect.html
-    function isLocalStorage() {
-        try {
-            return 'localStorage' in window && window['localStorage'] !== null;
-        } catch(e){
-            return false;
-        }
-    }
   
     function buildRequiredError(arrRequiresOneOf) {
         var requiresOneOfMessage = '';
@@ -279,12 +273,21 @@ var shim = (function() {
         return el;
     };
 
+    // Credit: Dive into html5 http://diveintohtml5.org/detect.html
+    function isLocalStorage() {
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch(e){
+            return false;
+        }
+    }
+
     return {
         element: function(o) {
             try {
                 proceedOrThrow({'required':["id"], 'arg':o,
                                 'errorMessage':'id property required'});
-                return document.getElementById(o.id);
+                return injectHandlers('element', document.getElementById(o.id));
             } catch(e){
                 throw e; 
             }
