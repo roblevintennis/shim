@@ -12,7 +12,10 @@ I developed a d-pad oriented application for TVs, BluRays, GTV, etc. I found tha
 At time of writing, I have hacked up a [jasmine][jasmine] test runner that prints test results out directly to console.log. Later, I plan to write a nice overlay/pop up or something. Just haven't got to it yet (ahem, any takers???). 
 
 Here's what you need to include if you plan to use the ShimReporter I just mentioned:
+
 <code>
+
+<!-- Assumes you want to use jasmine which is NOT required -->
 <script src="shim.js" type="text/javascript" charset="utf-8"></script>
 <script src="jasmine-shim-adapter.js" type="text/javascript" charset="utf-8"></script>
 <script src="jasmine.js" type="text/javascript" charset="utf-8"></script>
@@ -20,6 +23,7 @@ Here's what you need to include if you plan to use the ShimReporter I just menti
     jasmine.getEnv().addReporter(new jasmine.ShimReporter());
     jasmine.getEnv().execute();
 </script>
+
 </code>
 
 Again, you need to open up console.log to see some output. Probably running the test suite and hacking on it to meet your needs is the fastest ;) 
