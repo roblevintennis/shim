@@ -1,18 +1,36 @@
-# shim.js — A simple hack that allows you to test your application in it's own environment.
+# shim.js — Allows you to test your web application in it's own environment.
 
-According to Wikipedia, a shim in programming is: "In computer programming, a shim is a small library which transparently intercepts an API, changes the parameters passed, handles the operation itself, or redirects the operation elsewhere."..
+Wikipedia: "In computer programming, a shim is a small library which transparently intercepts an API, changes the parameters passed, handles the operation itself, or redirects the operation elsewhere."..
+
+shim.js gets injected in to your web application and thereafter gives you an API to drive your UI with. Similar in spirit to things like watir, capybara, etc., but is more direct in that it's written in JavaScript and becomes a part of your page.
 
 ## Why I wrote it 
 
 I developed a d-pad oriented application for TVs, BluRays, GTV, etc. I found that the UI test frameworks available, although wonderous in there accomplishments, not to be what I needed for my particular problem (e.g. I tried watir|watir-webdriver, Selenium, Windmill, etc., etc.) I found that they all had there own quirks and somehow prevented me from interacting with my application as directly as I would have liked. 
 
 ## How to use?
-At time of writing, I have patched the [jasmine][jasmine] test runner to print out directly in to console.log. I plan to write a nice overlay/pop up or something but haven't got to it yet. Probably running the test suite and hacking on it to meet your needs is the fastest ;) 
+At time of writing, I have hacked up a [jasmine][jasmine] test runner that prints test results out directly to console.log. Later, I plan to write a nice overlay/pop up or something. Just haven't got to it yet (ahem, any takers???). 
+
+Here's what you need to include if you plan to use the ShimReporter I just mentioned:
+<code>
+<script src="shim.js" type="text/javascript" charset="utf-8"></script>
+<script src="jasmine-shim-adapter.js" type="text/javascript" charset="utf-8"></script>
+<script src="jasmine.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    jasmine.getEnv().addReporter(new jasmine.ShimReporter());
+    jasmine.getEnv().execute();
+</script>
+</code>
+
+Again, you need to open up console.log to see some output. Probably running the test suite and hacking on it to meet your needs is the fastest ;) 
+
+## Does it require Jasmine?
+No. The above example just assumes that you want to, but shim.js is self sufficient. I just haven't created any hooks to other frameworks yet. shim.js simply provides a small API that allows you to interact with your web page's UI (e.g. click a button, set some text, etc.) and also see if the page contains text. 
 
 ## Usage
 
 A quick example how to use shim.js:
-
+<code>
     // Here's finding a textfield and setting it's value           
     var t = shim.textfield({name:"firstname"});
     t.set("john malkovich")
@@ -25,6 +43,22 @@ A quick example how to use shim.js:
     // Find a button and fire a keydown RIGHT event
     var b = shim.button({value:"Button1"});
     b.keydown(39);
+
+    // Some examples of using with jasmine to see if "page contains"    
+    // Notice that I've used familiar aliases for the exact same functionality:
+    expect(shim.pageContains('Wilson')).toBeTruthy();
+    expect(shim.pageDoesNotContain('bogus_no_way')).toBeTruthy();
+
+    // Familiar aliases #1
+    expect(shim.have_content('Wilson')).toBeTruthy();
+    expect(shim.have_no_content('bogus_no_way')).toBeTruthy(); 
+
+    // Familiar aliases #2
+    expect(shim.should_include('resig')).toBeTruthy();
+    expect(shim.should_not_include('bogus_no_way')).toBeTruthy();
+
+
+</code>
 
 Of course these all assume that libs have been included, etc. Probably the easiest way to grok quickly would be to look at the testShim.js file and run the test suite (which uses [jasmine][jasmine] by the way).
 
