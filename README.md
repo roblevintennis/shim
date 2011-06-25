@@ -13,7 +13,7 @@ At time of writing, I have hacked up a [jasmine][jasmine] test runner that print
 
 Here's what you need to include if you plan to use the ShimReporter I just mentioned:
 
-<code>
+<pre>
 
 <!-- Assumes you want to use jasmine which is NOT required -->
 <script src="shim.js" type="text/javascript" charset="utf-8"></script>
@@ -24,7 +24,7 @@ Here's what you need to include if you plan to use the ShimReporter I just menti
     jasmine.getEnv().execute();
 </script>
 
-</code>
+</pre>
 
 Again, you need to open up console.log to see some output. Probably running the test suite and hacking on it to meet your needs is the fastest ;) 
 
