@@ -86,7 +86,7 @@ shim.lastPage=true;
 These could be checked for before presenting test results, and, if multipage and not last page, write results to Web Storage (or similar).
 
 3. Tables/Forms not implemented (however, form elements are!).
-4. Pretty UI
+4. For Jasmine reporter, support nested describes.
 5. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
 
 ## F.A.Q.

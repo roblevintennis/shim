@@ -3,6 +3,7 @@
 ## 0.0.1 (25-06-2011)
 * Who: Rob Levin
 * Started on jquery ui modal dialog wrapped around accordian to display test results. 
+* Styled dialog.
 
 ## 0.0.1 (25-06-2011)
 * Who: Rob Levin

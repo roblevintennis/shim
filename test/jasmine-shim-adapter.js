@@ -80,9 +80,6 @@ jasmine.ShimReporter.prototype.reportSuiteResults = function(suite) {
         else if(specs[j].results_.failedCount) { 
             specMessage += "<div class='result "+status+"'>Failed</div>"; 
 
-console.log("\n\n\n\n>>>>>>>>>> DEBUG:");
-console.log(specs[j].results_);
-
             if(specs[j].results_.items_[0]) {
                 specMessage +=  '<div class="stack-trace">' + specs[j].results_.items_[0].trace +': '+
                                 specs[j].results_.items_[0].trace.stack + '</div>';
