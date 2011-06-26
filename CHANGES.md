@@ -4,6 +4,7 @@
 * Who: Rob Levin
 * Started on jquery ui modal dialog wrapped around accordian to display test results. 
 * Styled dialog.
+* Added elementsByClass
 
 ## 0.0.1 (25-06-2011)
 * Who: Rob Levin

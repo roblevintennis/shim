@@ -1,13 +1,6 @@
 //***************
 // Local Storage
 //***************
-
-describe("This should fail", function() {
-    it("should fail",function() {
-        expect(true).toBe(false);
-    });
-});
-
 describe("Local Storage", function() {
     it('should be able to clear localstore (assumes exists)', function () {
         shim.clearLocalStorage();
@@ -86,6 +79,16 @@ describe("Getting DOM Elements", function() {
     it('should get an element by id', function() {
         var e = shim.element({id:"ninja"});
         expect(e.nodeType>0).toBeTruthy();
+    });
+
+    it('should get a elements by classname', function() {
+        var elements = shim.elementsByClass({'class':"klassname"});
+        expect(elements.length===2).toBeTruthy();
+    });
+
+    it('should return a zero length array if no elements by classname', function() {
+        elements = shim.elementsByClass({'class':"nonexistent"});
+        expect(elements.length).toEqual(0);
     });
 
     it('should get a textfield by name or id', function() {
@@ -224,24 +227,35 @@ describe("DOM Setters and Actions", function() {
         }
     };
 
-    it('should fire click events', function() {
-        // Fire click on button
+    it('should fire click event on button', function() {
         var b = shim.button({value:"Button1"});
         jQuery(b).click(function(eventObject) {
             expect(eventObject.type).toBe('click');
             stopEvent(eventObject);
         });
         b.click();
+    });
 
-        // Fire click on submit
+    it('should fire click on element found by class', function() {
+        var elements = shim.elementsByClass({'class':"klassname"});
+        var k = elements[0];
+        jQuery(k).click(function(eventObject) {
+            expect(eventObject.type).toBe('click');
+            stopEvent(eventObject);
+        });
+        k.click();
+    });
+
+    it('should fire click event to submit button', function() {
         var s = shim.submit({value:"My Submit"});
         jQuery(s).click(function(eventObject) {
             expect(eventObject.type).toBe('click');
             stopEvent(eventObject);
         });
         s.click();
+    });
 
-        // Fire click on link
+    it('should fire click on link', function() {
         var ll = shim.link({href:"http://www.foo.com/path/to/index.html"});
         jQuery(ll).click(function(eventObject) {
             expect(eventObject.type).toBe('click');

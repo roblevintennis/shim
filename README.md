@@ -70,8 +70,7 @@ Of course these all assume that libs have been included, etc. Probably the easie
 You'll see that the test suite include [jquery][jquery]. However, shim.js does not and uses pure JavaScript so you don't need to include jquery if you don't want to.
 
 ### TODO 
-1. Find elements by class.
-2. Multipage: Now, it runs one page and reports results. If you need to traverse multiple pages it should do something like:
+1. Multipage: Now, it runs one page and reports results. If you need to traverse multiple pages it should do something like:
 
 <pre>
 
@@ -85,9 +84,9 @@ shim.lastPage=true;
 
 These could be checked for before presenting test results, and, if multipage and not last page, write results to Web Storage (or similar).
 
-3. Tables/Forms not implemented (however, form elements are!).
-4. For Jasmine reporter, support nested describes.
-5. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
+2. Tables/Forms not implemented (however, form elements are!).
+3. For Jasmine reporter, support nested describes.
+4. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
 
 ## F.A.Q.
 
