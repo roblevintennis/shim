@@ -45,6 +45,8 @@ First name: <input id='fn' type="text" name="firstname" value='tom' />
 <!-- Accordion -->
 <div id="dialog-modal" title="Test Results">
 <div id="accordion">
+
+<!--
     <h3><a href="#">First Run - Passed</a></h3>
     <div>
         <p>
@@ -91,6 +93,7 @@ First name: <input id='fn' type="text" name="firstname" value='tom' />
         inceptos himenaeos.
         </p>
     </div>
+-->
 </div>
     
 
@@ -128,9 +131,7 @@ jq(function() {
             }
     });
 });
-</script>
 
-<script type="text/javascript" charset="utf-8">
 setTimeout(function() {
     jasmine.getEnv().addReporter(new jasmine.ShimReporter());
     jasmine.getEnv().execute();

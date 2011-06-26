@@ -64,6 +64,9 @@ var shim = (function() {
                             wholeWords,     // NOT IMPLEMENTED in MDC!
                             true,           // search in frames
                             false);         // show dialog
+
+            //console.log(window.getSelection().getRangeAt(0).cloneContents().textContent);
+            window.getSelection().removeAllRanges();
         }
     
         // Internet Explorer, Opera before version 10.5
@@ -93,11 +96,13 @@ var shim = (function() {
                         stringFound = textRange.findText(stringToFind, 0, 2);
                     }
                 }
+                // deselect (wanted to find out if exists, not leave selection) 
+                document.selection.empty();
             }
         }
         return stringFound;
     }
-
+          
     function doLink (o, arrRequiresOneOf) {
         boilerPlate(o, arrRequiresOneOf);
 
@@ -428,6 +433,13 @@ var shim = (function() {
         have_no_content: function (stringToFind, caseSensitive, wholeWords){
             return !findTextOnPage(stringToFind, caseSensitive, wholeWords);
         },
+        clearAllSelections: function() {
+            if(window.selection) {
+                document.selection.empty();
+            } else {
+                window.getSelection().removeAllRanges();
+            }
+        }, 
         ShimInputError: function(message) { return new ShimInputError(message); }
     }
 })();
