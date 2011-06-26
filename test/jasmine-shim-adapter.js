@@ -9,6 +9,7 @@ shim.results = {};
 //***********************************
 jasmine.ShimReporter.prototype.reportRunnerStarting = function(runner) {
     this.startedAt = new Date();
+/*
     var parentSuiteId;
     var version = runner.env.versionString();
     var suites  = runner.suites();
@@ -27,12 +28,14 @@ jasmine.ShimReporter.prototype.reportRunnerStarting = function(runner) {
     }
     this.log(suitesRunnerStartedMessage);
     this.log("\n\n");
+*/
 };
 
 jasmine.ShimReporter.prototype.reportSpecStarting = function(spec) {
     //this.log('>> Jasmine Running ' + spec.suite.description + ' ' + spec.description + '...');
 };
 
+/*
 jasmine.ShimReporter.prototype.reportSpecResults = function(spec) {
     var thisSpecMessage = '';
     var results = spec.results();
@@ -52,46 +55,51 @@ jasmine.ShimReporter.prototype.reportSpecResults = function(spec) {
         }
     }
 };
+*/
 
 jasmine.ShimReporter.prototype.reportSuiteResults = function(suite) {
+    var specs, suiteTitle, suiteContent, len, specMessage = '', specCount = 0, messagesForThisSuite = '';
     var results = suite.results();
-    var messagesForThisSuite = '';
-    var status = results.passed() ? 'Passed' : 'Failed';
+    var status = results.passed() ? 'passed' : 'failed';
+
     if (results.totalCount == 0) { // todo: change this to check results.skipped
         status = 'skipped';
     }
-    this.log("=========================================");
-    this.log("Test Results for Suite: || "+suite.description+" ||");
-    this.log("=========================================");
-    this.log(status);
-  
-    var suiteTitle = jq('<h3><a href="#">'+ suite.getFullName() +'</a></h3>');
-    var suiteContent = jq('<div id="'+ suite.id +'"></div>');
-    jq('#accordion').append(suiteTitle)
-                    .append(suiteContent)
-
-    shim.results[suite.id] = suiteContent;
-
-    //desc = suite.description;
+    suiteTitle = jQuery('<h3 class="'+status+'"><a href="#">'+ suite.getFullName() +'</a></h3>');
+    suiteContent = jQuery('<div id="'+ suite.id +'"></div>');
     specs = suite.specs_;
-    var specMessage, specCount;
-    for (j = 0; j < specs.length; j++) {
-        specMessage = specs[j].description;
+    len = specs.length;
+
+    for (j = 0; j < len; j++) {
+
+        specMessage = '<div class="spec-desc"><span class="dbl-r-angle">&#187;</span>'+specs[j].description+"</div>";
 
         if(specs[j].results_.passedCount) { 
-            specMessage += " - Passed"; 
+            specMessage += "<div class='result "+status+"'>Passed</div>"; 
         }
         else if(specs[j].results_.failedCount) { 
-            specMessage += " - Failed"; 
-        }
-        else { specMessage += " - Result Unknown"; }
+            specMessage += "<div class='result "+status+"'>Failed</div>"; 
 
+console.log("\n\n\n\n>>>>>>>>>> DEBUG:");
+console.log(specs[j].results_);
+
+            if(specs[j].results_.items_[0]) {
+                specMessage +=  '<div class="stack-trace">' + specs[j].results_.items_[0].trace +': '+
+                                specs[j].results_.items_[0].trace.stack + '</div>';
+            }
+        } else { 
+            specMessage += "<div class='result "+status+"'>Result Unknown</div>"; 
+        }
         specCount++;
-        shim.results[specs[j].suite.id].append(
-            '<p>'+specs[j].getFullName()+': '+status+' '+specMessage+'</p>'
+        jQuery(suiteContent).append(
+            '<p>'+specMessage+'</p>'
         );
     }
-    shim.results[suite.id].className += " " + status;
+    jQuery(suiteContent).prepend('<span class="spec-count">Spec Count: '+specCount+'</span>');
+
+    // Append the suite's contents to the accordian
+    jQuery('#accordion').append(suiteTitle)
+                    .append(suiteContent)
 };
 
 
@@ -103,7 +111,6 @@ jasmine.ShimReporter.prototype.reportRunnerResults = function(runner) {
 
     message = "" + specCount + " spec" + (specCount == 1 ? "" : "s" ) + ", " + results.failedCount + " failure" + ((results.failedCount == 1) ? "" : "s");
     message += " in " + ((new Date().getTime() - this.startedAt.getTime()) / 1000) + "s";
-
     this.log(message);
     this.log("Finished at " + new Date().toString() + "\n\n");
     this.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n\n");
@@ -122,8 +129,8 @@ jasmine.ShimReporter.prototype.reportRunnerResults = function(runner) {
         }
     }
     // Open the Modal Dialog Window 
-    jq("#dialog-modal").dialog('open');
-    jq('#accordion').find('h3 :first-child').click();
+    jQuery("#dialog-modal").dialog('open');
+    jQuery('#accordion').find('h3 :first-child').click();
 };
 
 jasmine.ShimReporter.prototype.log = function() {

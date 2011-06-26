@@ -2,6 +2,12 @@
 // Local Storage
 //***************
 
+describe("This should fail", function() {
+    it("should fail",function() {
+        expect(true).toBe(false);
+    });
+});
+
 describe("Local Storage", function() {
     it('should be able to clear localstore (assumes exists)', function () {
         shim.clearLocalStorage();

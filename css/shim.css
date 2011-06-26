@@ -1,0 +1,46 @@
+.spec-desc {
+    border-top:1px dotted #d4d4d4;
+    border-bottom:1px dotted #d4d4d4;
+    margin-top:20px;
+    padding: 5px 5px 5px 0px;
+    color: #555;
+}
+span.dbl-r-angle { 
+    color: #999;
+    font-size: 1.4em; 
+    margin-right: 5px;
+    position: relative;
+    top:1px;
+}
+
+.passed { background: #66FF99; }
+.failed { background: #FF4400; }
+
+#accordion h3.failed { background: #FF4400; }
+
+.result.passed { color: #00FF00; }
+.result.failed { color: #FF4400; }
+
+.stack-trace { 
+    width:300px; 
+    word-wrap: break-word;
+}
+
+
+.result {
+    padding: 2px 5px;
+    margin: 8px 0px 8px 220px;
+    font-size: 1.125em;
+    background:none;
+    width: 60px;
+    text-align:center;
+    moz-border-radius: 5px;
+    border-radius: 5px;
+}            
+span.spec-count {
+    border-bottom: 1px solid #777;
+    color: #555;
+    padding-bottom: 3px;
+}    
+
+
