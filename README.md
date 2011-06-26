@@ -71,9 +71,23 @@ You'll see that the test suite include [jquery][jquery]. However, shim.js does n
 
 ### TODO 
 1. Find elements by class.
-2. Tables/Forms not implemented (however, form elements are!).
-3. Pretty UI
-4. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
+2. Multipage: Now, it runs one page and reports results. If you need to traverse multiple pages it should do something like:
+
+<pre>
+
+// Set this at top of app
+shim.multipage = true; 
+
+// And then maybe on the last page put an indicator like:
+shim.lastPage=true;
+
+</pre>
+
+These could be checked for before presenting test results, and, if multipage and not last page, write results to Web Storage (or similar).
+
+3. Tables/Forms not implemented (however, form elements are!).
+4. Pretty UI
+5. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
 
 ## F.A.Q.
 

@@ -14,6 +14,60 @@ describe("Local Storage", function() {
     });
 });
 
+
+//********************
+// Page Should Contain
+//********************
+describe("Page Contains", function() {
+
+    it('should be able to see text on page', function () {
+        expect(shim.pageContains('resig')).toBeTruthy();
+        expect(shim.pageContains('bogus_no_way')).not.toBeTruthy();
+        expect(shim.pageDoesNotContain('bogus_no_way')).toBeTruthy();
+    });
+
+    it('should be able to search for same term twice ', function () {
+        expect(shim.pageContains('Wilson')).toBeTruthy();
+        expect(shim.pageContains('Wilson')).toBeTruthy();// same term twice
+    });
+    it('should not find hidden elements', function () {
+        expect(shim.pageContains('ihide')).not.toBeTruthy();
+        expect(shim.pageContains('ihide2')).not.toBeTruthy();
+        expect(shim.pageContains('ishow')).toBeTruthy();
+    });
+
+    it('should default to partial words case sensitive', function () {
+        expect(shim.pageContains('isho')).toBeTruthy();
+        expect(shim.have_content('Wils')).toBeTruthy();
+    });
+
+    it('should have finer grained control for case and whole words', function () {
+        expect(shim.have_content('wIlSoN', false)).toBeTruthy();
+        expect(shim.have_content('wIlSoN', true)).not.toBeTruthy();
+        // Only match whole words. MDC does NOT implement this.
+        //expect(shim.have_content('lisciousn', true, true)).not.toBeTruthy();
+    });
+
+    it('should provide some familiar aliases for page contains', function () {
+        // capybara
+        expect(shim.have_content('Wilson')).toBeTruthy();
+        expect(shim.have_no_content('bogus_no_way')).toBeTruthy();
+        // watir/selenium
+        expect(shim.should_include('resig')).toBeTruthy();
+
+
+
+//**********************************************************************************
+// TODO: Need to add deselect function setSelectionRange(0,0) or whatever to shim.js
+// as it stands, the above line leaves a selection around 'resig'
+//**********************************************************************************
+
+        expect(shim.should_include('bogus_no_way')).not.toBeTruthy();
+        expect(shim.should_not_include('bogus_no_way')).toBeTruthy();
+    });
+
+});
+
 //*************
 // DOM Getters
 //*************
@@ -223,50 +277,5 @@ describe("DOM Setters and Actions", function() {
         ll.keydown(13);
     });
 
-});
-
-//********************
-// Page Should Contain
-//********************
-describe("Page Contains", function() {
-
-    it('should be able to see text on page', function () {
-        expect(shim.pageContains('resig')).toBeTruthy();
-        expect(shim.pageContains('bogus_no_way')).not.toBeTruthy();
-        expect(shim.pageDoesNotContain('bogus_no_way')).toBeTruthy();
-    });
-
-    it('should be able to search for same term twice ', function () {
-        expect(shim.pageContains('Wilson')).toBeTruthy();
-        expect(shim.pageContains('Wilson')).toBeTruthy();// same term twice
-    });
-
-    it('should provide some familiar aliases for page contains', function () {
-        // capybara
-        expect(shim.have_content('Wilson')).toBeTruthy();
-        expect(shim.have_no_content('bogus_no_way')).toBeTruthy();
-        // watir/selenium
-        expect(shim.should_include('resig')).toBeTruthy();
-        expect(shim.should_include('bogus_no_way')).not.toBeTruthy();
-        expect(shim.should_not_include('bogus_no_way')).toBeTruthy();
-    });
-
-    it('should not find hidden elements', function () {
-        expect(shim.pageContains('ihide')).not.toBeTruthy();
-        expect(shim.pageContains('ihide2')).not.toBeTruthy();
-        expect(shim.pageContains('ishow')).toBeTruthy();
-    });
-
-    it('should default to partial words case sensitive', function () {
-        expect(shim.pageContains('isho')).toBeTruthy();
-        expect(shim.have_content('Wils')).toBeTruthy();
-    });
-
-    it('should have finer grained control for case and whole words', function () {
-        expect(shim.have_content('wIlSoN', false)).toBeTruthy();
-        expect(shim.have_content('wIlSoN', true)).not.toBeTruthy();
-        // Only match whole words. MDC does NOT implement this.
-        //expect(shim.have_content('lisciousn', true, true)).not.toBeTruthy();
-    });
 });
 

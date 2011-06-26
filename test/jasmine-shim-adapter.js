@@ -44,6 +44,24 @@ jasmine.ShimReporter.prototype.reportRunnerResults = function(runner) {
 
 };
 
+function getWindowSize() {
+    var myWidth = 0, myHeight = 0;
+    //Non-IE
+    if( typeof( window.innerWidth ) == 'number' ) {
+        myWidth = window.innerWidth;
+        myHeight = window.innerHeight;
+    } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+        //IE 6+ in 'standards compliant mode'
+        myWidth = document.documentElement.clientWidth;
+        myHeight = document.documentElement.clientHeight;
+    } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+        //IE 4 compatible
+        myWidth = document.body.clientWidth;
+        myHeight = document.body.clientHeight;
+    }
+    return {w:myWidth, h:myWidth};
+}
+
 jasmine.ShimReporter.prototype.reportSuiteResults = function(suite) {
     var results = suite.results();
     var status = results.passed() ? 'passed' : 'failed';
@@ -54,6 +72,9 @@ jasmine.ShimReporter.prototype.reportSuiteResults = function(suite) {
     this.log("Test Results for Suite: || "+suite.description+" ||");
     this.log("=========================================");
     this.log(status);
+
+    // Open the Modal Dialog Window 
+    jq("#dialog-modal").dialog('open');
 };
 
 jasmine.ShimReporter.prototype.reportSpecStarting = function(spec) {
