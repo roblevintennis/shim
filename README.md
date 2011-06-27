@@ -2,7 +2,7 @@
 
 Wikipedia: "In computer programming, a shim is a small library which transparently intercepts an API, changes the parameters passed, handles the operation itself, or redirects the operation elsewhere."..
 
-shim.js gets injected in to your web application and thereafter gives you an API to drive your UI with. Similar in spirit to things like watir, capybara, etc., but is more direct in that it's written in JavaScript and becomes a part of your page.
+shim.js gets injected in to your web application and thereafter gives you an API to drive your UI with. Similar in spirit to things like watir, capybara, etc., but is more direct in that it's written in JavaScript and becomes a part of your page. On the other hand it's very different from these in that (at time of writing) it will vanish as soon as you leave the page. This requires you to test one page at a time. If you have a one page monster web app it's a great fit. However, I do have on my TODOs to add multipage support (see below).
 
 ## Why I wrote it 
 
@@ -25,14 +25,16 @@ jasmine.getEnv().execute();
 
 </pre>
 
-Again, you need to open up console.log to see some output. Probably running the test suite and hacking on it to meet your needs is the fastest ;) 
+It uses jqueryui and creates a nice modal dialog wrapped around an accordian to the right top side of your viewport. Again, all but the first line assumes you want to use the jasmine test runner. If not, just include shim.js alone.
 
 ## Does it require Jasmine?
-No. The above example just assumes that you want to, but shim.js is self sufficient. I just haven't created any hooks to other frameworks yet. shim.js simply provides a small API that allows you to interact with your web page's UI (e.g. click a button, set some text, etc.) and also see if the page contains text. 
+No. The above example just assumes that you want to, but shim.js is self sufficient. This would, for example, equate to only using shim.js. For the UI, well, yes for now. I just haven't created any hooks to other frameworks yet. 
+
+The shim.js script itself simply provides a small API that allows you to interact with your web page's UI (e.g. click a button, set some text, etc.) and also see if the page contains text. If you don't want to use jasmine but feel intrigued by shim.js, you could first run the shim test suite (which uses jasmine and jquery), and get a feel for what's going on quickly; then you could just take shim.js and use in a way that suites your needs.
 
 ## Usage
 
-A quick example how to use shim.js:
+A quick example how to use shim.js (assuming you've included it):
 
 <code>
 
@@ -70,7 +72,9 @@ Of course these all assume that libs have been included, etc. Probably the easie
 You'll see that the test suite include [jquery][jquery]. However, shim.js does not and uses pure JavaScript so you don't need to include jquery if you don't want to.
 
 ### TODO 
-1. Multipage: Now, it runs one page and reports results. If you need to traverse multiple pages it should do something like:
+1. Multipage: At time of this writing, it runs one page and reports results. This means it will dissapear if you link off the page. Also, if your used to the watir/capybara, etc., paradign where you keep reloading pages, you'll have to shift your thinking as shim does not keep track of where in the test suite it last left off. 
+
+However, I do see a case for adding multipage functionality that might work like this: if you needed to traverse multiple pages you would:
 
 <pre>
 
@@ -82,7 +86,7 @@ shim.lastPage=true;
 
 </pre>
 
-These could be checked for before presenting test results, and, if multipage and not last page, write results to Web Storage (or similar).
+These could be checked for before presenting test results, and, if multipage and not last page, write results to Web Storage (or similar). Again, you're reading the TODO section - this functionality does not yet exist ;)
 
 2. Tables/Forms not implemented (however, form elements are!).
 3. For Jasmine reporter, support nested describes.
