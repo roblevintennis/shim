@@ -5,7 +5,6 @@
 * Started on jquery ui modal dialog wrapped around accordian to display test results. 
 * Styled dialog.
 * Added elementsByClass
-* Added elementsByClass
 * Added triggerEvent
 * Fixed issue #1: Passing specs red in suite where another spec failed
 
