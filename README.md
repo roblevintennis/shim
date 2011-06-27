@@ -9,9 +9,9 @@ shim.js gets injected in to your web application and thereafter gives you an API
 I developed a d-pad oriented application for TVs, BluRays, GTV, etc. I found that the UI test frameworks available, although wonderous in there accomplishments, not to be what I needed for my particular problem (e.g. I tried watir|watir-webdriver, Selenium, Windmill, etc., etc.) I found that they all had there own quirks and somehow prevented me from interacting with my application as directly as I would have liked. 
 
 ## How to use?
-At time of writing, I have hacked up a [jasmine][jasmine] test runner that prints test results out directly to console.log. Later, I plan to write a nice overlay/pop up or something. Just haven't got to it yet (ahem, any takers???). 
+At time of writing, I have created a [jasmine][jasmine] test runner that uses jqueryui to show test results in a modal accordian view. It waits until the tests have completed before presenting itself.
 
-Here's what you need to include if you plan to use the ShimReporter I just mentioned:
+Here's what you need to include if you plan to use the above mentioned "ShimReporter" I just mentioned:
 
 <pre>
 
@@ -25,12 +25,12 @@ jasmine.getEnv().execute();
 
 </pre>
 
-It uses jqueryui and creates a nice modal dialog wrapped around an accordian to the right top side of your viewport. Again, all but the first line assumes you want to use the jasmine test runner. If not, just include shim.js alone.
+The modal dialog accordian will show up to the right top side of your viewport upon test completion. Again, all but the first line assumes you want to use the jasmine test runner. If not, just include shim.js alone.
 
 ## Does it require Jasmine?
-No. The above example just assumes that you want to, but shim.js is self sufficient. This would, for example, equate to only using shim.js. For the UI, well, yes for now. I just haven't created any hooks to other frameworks yet. 
+No. The above example just assumes that you want to, but shim.js is self-sufficient. However, for the UI test runner to work, well, yes for now. I just haven't created any hooks to other frameworks yet but I hope to.
 
-The shim.js script itself simply provides a small API that allows you to interact with your web page's UI (e.g. click a button, set some text, etc.) and also see if the page contains text. If you don't want to use jasmine but feel intrigued by shim.js, you could first run the shim test suite (which uses jasmine and jquery), and get a feel for what's going on quickly; then you could just take shim.js and use in a way that suites your needs.
+The shim.js script itself simply provides a small API that allows you to interact with your web page's UI (e.g. click a button, set some text, etc.) and also see if the page contains text. If you don't want to use jasmine but feel intrigued by shim.js, you could first run the shim test suite (which uses jasmine and jquery), and get a feel for what's going on quickly. Then you could just take shim.js and use in a way that suites your needs.
 
 ## Usage
 
@@ -67,19 +67,20 @@ A quick example how to use shim.js (assuming you've included it):
 
 </code>
 
-Of course these all assume that libs have been included, etc. Probably the easiest way to grok quickly would be to look at the testShim.js file and run the test suite (which uses [jasmine][jasmine] by the way).
-
-You'll see that the test suite include [jquery][jquery]. However, shim.js does not and uses pure JavaScript so you don't need to include jquery if you don't want to.
+Probably the easiest way to grok quickly would be to look at the testShim.js file and run the test suite, shim.html. 
+You'll see that the test suite includes [jquery][jquery] and [jasmine][jasmine]. However, again, shim.js itself does not, and uses pure JavaScript so you don't need to include jquery or jasmine if you don't want to. 
 
 ### TODO 
 
-1) Multipage: At time of this writing, it runs one page and reports results. This means it will dissapear if you link off the page. Also, if your used to the watir/capybara, etc., paradign where you keep reloading pages, you'll have to shift your thinking as shim does not keep track of where in the test suite it last left off. 
+1) Multipage: At time of this writing, the jasmine based test runner works on a per page basis assumming that you have included your test suite/cases into the web page. It then reports the test results upon completion in the modal accordian view. So this means it will dissapear if you follow a link off that page! If your used to the watir/capybara, etc., paradign where you keep reloading pages case by case, you'll have to shift your thinking as shim does not keep track of where in the test suite it last left off. This make a very strong case to use one of those frameworks should you have that sort of requirement.
 
-However, I do see a case for adding multipage functionality that might work like this: if you needed to traverse multiple pages you would:
+Note that I do see a case for adding multipage functionality -- multipage, in that you would be able to follow links to other pages that also include shim.js. Note that I do NOT mean that it would keep track of how many test cases have run and then start subsequently. Again, capybara/watir might be better if that's required.
+
+The multipage version I'm hoping to code up would likely work like this:
 
 <pre>
 
-// Set this at top of app
+// You'd set this at top of your app to tell shim you want multipage
 shim.multipage = true; 
 
 // And then maybe on the last page put an indicator like:
@@ -87,13 +88,15 @@ shim.lastPage=true;
 
 </pre>
 
-These could be checked for before presenting test results, and, if multipage and not last page, write results to Web Storage (or similar). Again, you're reading the TODO section - this functionality does not yet exist ;)
+These could be checked for before presenting test results, and, if multipage is true, and not last page, write results to Web Storage localStorage. Then, on lastPage, shim would present the results by parsing the localStorage. 
 
-2) Tables/Forms not implemented (however, form elements are!).
+Again, you're reading the TODO section - this functionality does not yet exist ;)
 
-3) For Jasmine reporter, support nested describes.
+2) Tables/Forms not implemented (however, form elements are!). This will probably come when I or someone else needs this for their project. Probably pretty easy to add.
 
-4) Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
+3) For Jasmine reporter, support nested describes. Partly due to my laziness ;-0
+
+4) Tie in with some other test frameworks other than just jasmine. Maybe qunit? If/when I do this, I'll be selective and follow my own biases. At present, I seem to favor jasmine and qunit so qunit would be next. Love/hate with jstestdriver and can be hooked in to jasmine, etc., so probably not from my fingers. Great to get some open source love for this one ;)
 
 ## F.A.Q.
 
