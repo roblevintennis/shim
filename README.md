@@ -72,6 +72,7 @@ Of course these all assume that libs have been included, etc. Probably the easie
 You'll see that the test suite include [jquery][jquery]. However, shim.js does not and uses pure JavaScript so you don't need to include jquery if you don't want to.
 
 ### TODO 
+
 1. Multipage: At time of this writing, it runs one page and reports results. This means it will dissapear if you link off the page. Also, if your used to the watir/capybara, etc., paradign where you keep reloading pages, you'll have to shift your thinking as shim does not keep track of where in the test suite it last left off. 
 
 However, I do see a case for adding multipage functionality that might work like this: if you needed to traverse multiple pages you would:
