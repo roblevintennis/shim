@@ -53,14 +53,6 @@ describe("Page Contains", function() {
         expect(shim.have_no_content('bogus_no_way')).toBeTruthy();
         // watir/selenium
         expect(shim.should_include('resig')).toBeTruthy();
-
-
-
-//**********************************************************************************
-// TODO: Need to add deselect function setSelectionRange(0,0) or whatever to shim.js
-// as it stands, the above line leaves a selection around 'resig'
-//**********************************************************************************
-
         expect(shim.should_include('bogus_no_way')).not.toBeTruthy();
         expect(shim.should_not_include('bogus_no_way')).toBeTruthy();
     });
@@ -263,7 +255,7 @@ describe("DOM Setters and Actions", function() {
         });
         ll.click();
     });
- 
+
     it('should fire click event on element by id', function() {
         var e = shim.element({id:"ninja"});
         jQuery(e).click(function(eventObject) {
@@ -295,6 +287,16 @@ describe("DOM Setters and Actions", function() {
             });
         });
         ll.keydown(13);
+    });
+ 
+    it('should fire event if direct call to triggerEvent', function() {
+        jQuery('#ninja').keydown(function(eventObject) {
+            runs(function() {
+                expect(eventObject.which).toBe(13);
+                stopEvent(eventObject);
+            });
+        });
+        shim.triggerEvent(document.getElementById('ninja'), 'keydown', 13);
     });
 
 });

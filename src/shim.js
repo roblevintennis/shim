@@ -511,7 +511,9 @@ var shim = (function() {
         clearLocalStorage: function() {
             if(isLocalStorage) window.localStorage.clear();
         },
-
+        triggerEvent: function(element, eventName, kcode) {
+            return triggerEvent(element, eventName, kcode);
+        },
         // Page contains. Decided to provide some aliases for this ;)
         // Only stringFound is required as it defaults to case sensitive
         // partial words

@@ -60,12 +60,12 @@ jasmine.ShimReporter.prototype.reportSpecResults = function(spec) {
 jasmine.ShimReporter.prototype.reportSuiteResults = function(suite) {
     var specs, suiteTitle, suiteContent, len, specMessage = '', specCount = 0, messagesForThisSuite = '';
     var results = suite.results();
-    var status = results.passed() ? 'passed' : 'failed';
+    var suiteStatus = results.passed() ? 'passed' : 'failed';
 
     if (results.totalCount == 0) { // todo: change this to check results.skipped
-        status = 'skipped';
+        suiteStatus = 'skipped';
     }
-    suiteTitle = jQuery('<h3 class="'+status+'"><a href="#">'+ suite.getFullName() +'</a></h3>');
+    suiteTitle = jQuery('<h3 class="'+suiteStatus+'"><a href="#">'+ suite.getFullName() +'</a></h3>');
     suiteContent = jQuery('<div id="'+ suite.id +'"></div>');
     specs = suite.specs_;
     len = specs.length;
@@ -75,17 +75,17 @@ jasmine.ShimReporter.prototype.reportSuiteResults = function(suite) {
         specMessage = '<div class="spec-desc"><span class="dbl-r-angle">&#187;</span>'+specs[j].description+"</div>";
 
         if(specs[j].results_.passedCount) { 
-            specMessage += "<div class='result "+status+"'>Passed</div>"; 
+            specMessage += "<div class='result passed'>Passed</div>"; 
         }
         else if(specs[j].results_.failedCount) { 
-            specMessage += "<div class='result "+status+"'>Failed</div>"; 
+            specMessage += "<div class='result failed'>Failed</div>"; 
 
             if(specs[j].results_.items_[0]) {
                 specMessage +=  '<div class="stack-trace">' + specs[j].results_.items_[0].trace +': '+
                                 specs[j].results_.items_[0].trace.stack + '</div>';
             }
         } else { 
-            specMessage += "<div class='result "+status+"'>Result Unknown</div>"; 
+            specMessage += "<div class='result skipped'>Result Unknown</div>"; 
         }
         specCount++;
         jQuery(suiteContent).append(

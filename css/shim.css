@@ -15,10 +15,12 @@ span.dbl-r-angle {
 
 .passed { background: #66FF99; }
 .failed { background: #FF4400; }
-
+#accordion h3.skipped,
 #accordion h3.failed { background: #FF4400; }
 
+
 .result.passed { color: #00FF00; }
+.result.skipped,
 .result.failed { color: #FF4400; }
 
 .stack-trace { 
