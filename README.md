@@ -73,7 +73,7 @@ You'll see that the test suite include [jquery][jquery]. However, shim.js does n
 
 ### TODO 
 
-1. Multipage: At time of this writing, it runs one page and reports results. This means it will dissapear if you link off the page. Also, if your used to the watir/capybara, etc., paradign where you keep reloading pages, you'll have to shift your thinking as shim does not keep track of where in the test suite it last left off. 
+1) Multipage: At time of this writing, it runs one page and reports results. This means it will dissapear if you link off the page. Also, if your used to the watir/capybara, etc., paradign where you keep reloading pages, you'll have to shift your thinking as shim does not keep track of where in the test suite it last left off. 
 
 However, I do see a case for adding multipage functionality that might work like this: if you needed to traverse multiple pages you would:
 
@@ -89,9 +89,9 @@ shim.lastPage=true;
 
 These could be checked for before presenting test results, and, if multipage and not last page, write results to Web Storage (or similar). Again, you're reading the TODO section - this functionality does not yet exist ;)
 
-2. Tables/Forms not implemented (however, form elements are!).
-3. For Jasmine reporter, support nested describes.
-4. Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
+2) Tables/Forms not implemented (however, form elements are!).
+3) For Jasmine reporter, support nested describes.
+4) Tie in with some other test frameworks other than just jasmine. Maybe qunit? Will be selected and hopefully get some help with this sort of thing.
 
 ## F.A.Q.
 
