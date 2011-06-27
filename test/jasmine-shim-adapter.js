@@ -35,7 +35,6 @@ jasmine.ShimReporter.prototype.reportSpecStarting = function(spec) {
     //this.log('>> Jasmine Running ' + spec.suite.description + ' ' + spec.description + '...');
 };
 
-/*
 jasmine.ShimReporter.prototype.reportSpecResults = function(spec) {
     var thisSpecMessage = '';
     var results = spec.results();
@@ -55,7 +54,6 @@ jasmine.ShimReporter.prototype.reportSpecResults = function(spec) {
         }
     }
 };
-*/
 
 jasmine.ShimReporter.prototype.reportSuiteResults = function(suite) {
     var specs, suiteTitle, suiteContent, len, specMessage = '', specCount = 0, messagesForThisSuite = '';
