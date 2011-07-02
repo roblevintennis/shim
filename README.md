@@ -101,6 +101,16 @@ Again, you're reading the TODO section - this functionality does not yet exist ;
 
 4) Tie in with some other test frameworks other than just jasmine. Maybe qunit? If/when I do this, I'll be selective and follow my own biases. At present, I seem to favor jasmine and qunit so qunit would be next. Love/hate with jstestdriver and can be hooked in to jasmine, etc., so probably not from my fingers. Great to get some open source love for this one ;)
 
+5) Reload Support: Would require shim to keep track of how many test cases have run and then start from where it left off. Perhaps this could be a config property:
+
+<pre>
+
+shim.reload = true;
+
+</pre>
+
+I'll have to think about how to do this without creating a whole test framework as this requires keeping some sort of map of test cases and another progress map of tests ran. This could leverage localStorage. Not yet thought out...very desirable feature as reloading the browser between test cases insures truly independent test cases ;)
+
 ## F.A.Q.
 
 ### Coming soon
