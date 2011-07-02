@@ -5,7 +5,7 @@ Wikipedia: "In computer programming, a shim is a small library which transparent
 shim.js gets injected in to your web application and thereafter gives you an API to drive your UI with. Similar in spirit to things like watir, capybara, etc., but is more direct in that it's written in JavaScript and becomes a part of your page. On the other hand it's very different from these in that (at time of writing) it will vanish as soon as you leave the page. This requires you to test one page at a time. If you have a one page monster web app it's a great fit. However, I do have on my TODOs to add multipage support (see below).
 
 ## Screenshot
-[id]: https://lh5.googleusercontent.com/-LrlDW3YLNbM/Tg6nRgSAxuI/AAAAAAAAAMI/Zcu4FrW4KtY/s144/shim_ui.jpg "Screen capture of shim.ja test suite using the shim UI using jasmine"
+<img src="https://lh5.googleusercontent.com/-LrlDW3YLNbM/Tg6nRgSAxuI/AAAAAAAAAMI/Zcu4FrW4KtY/s144/shim_ui.jpg" alt="Screen capture of shim.ja test suite using the shim UI using jasmine" />
 
 ## Why I wrote it 
 
