@@ -116,4 +116,4 @@ I'll have to think about how to do this without creating a whole test framework 
 ### Coming soon
 
 [jQuery]: http://jquery.com/
-[jasmine]: http://pivotal.github.com/jasmine/
+[jasmine]: https://jasmine.github.io/
